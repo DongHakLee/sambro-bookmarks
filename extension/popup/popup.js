@@ -30,19 +30,22 @@ async function getPageMetadata(tab) {
           return meta ? meta.content : null;
         };
 
-        return {
+        const metadata = {
           title: document.title,
-          description: getMetaContent('og:description') || 
+          description: getMetaContent('og:description') ||
                        getMetaContent('description') || '',
           ogImage: getMetaContent('og:image') || '',
-          favicon: document.querySelector('link[rel*="icon"]')?.href || 
+          favicon: document.querySelector('link[rel*="icon"]')?.href ||
                    `${window.location.origin}/favicon.ico`
         };
+
+        console.log('[Sambro] Extracted metadata:', metadata);
+        return metadata;
       }
     });
     return result.result;
   } catch (error) {
-    console.error('Error getting metadata:', error);
+    console.error('[Sambro] Error getting metadata:', error);
     return {
       title: tab.title || '',
       description: '',
@@ -91,12 +94,15 @@ async function init() {
   // Store metadata for later
   form.dataset.ogImage = metadata.ogImage;
   form.dataset.favicon = metadata.favicon;
+
+  console.log('[Sambro] Init - OG Image:', metadata.ogImage);
+  console.log('[Sambro] Init - Favicon:', metadata.favicon);
 }
 
 // Handle form submit
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  
+
   saveBtn.disabled = true;
   saveBtn.textContent = 'Saving...';
   statusDiv.className = 'status hidden';
@@ -107,17 +113,18 @@ form.addEventListener('submit', async (e) => {
       title: titleInput.value || null,
       description: descriptionInput.value || null,
       note: noteInput.value || null,
-      og_image: form.dataset.ogImage || null,
-      favicon_url: form.dataset.favicon || null
+      og_image: form.dataset.ogImage,
+      favicon_url: form.dataset.favicon
     };
 
+    console.log('[Sambro] Saving bookmark:', bookmark);
     await saveBookmark(bookmark);
     showStatus('Bookmark saved!', 'success');
-    
+
     // Close popup after short delay
     setTimeout(() => window.close(), 1000);
   } catch (error) {
-    console.error('Error:', error);
+    console.error('[Sambro] Error:', error);
     showStatus(error.message || 'Failed to save', 'error');
     saveBtn.disabled = false;
     saveBtn.textContent = 'Save Bookmark';
