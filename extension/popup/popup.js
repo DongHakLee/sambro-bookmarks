@@ -127,8 +127,7 @@ form.addEventListener('submit', async (e) => {
 // Open dashboard
 openDashboard.addEventListener('click', (e) => {
   e.preventDefault();
-  // TODO: Update with your deployed URL
-  chrome.tabs.create({ url: 'http://localhost:3000' });
+  chrome.tabs.create({ url: 'https://web-lilac-two-28.vercel.app' });
 });
 
 // Initialize
