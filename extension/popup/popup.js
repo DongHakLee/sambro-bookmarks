@@ -127,7 +127,7 @@ form.addEventListener('submit', async (e) => {
 // Open dashboard
 openDashboard.addEventListener('click', (e) => {
   e.preventDefault();
-  chrome.tabs.create({ url: 'https://web-lilac-two-28.vercel.app' });
+  chrome.tabs.create({ url: 'https://sambro-bookmarks.vercel.app' });
 });
 
 // Initialize
