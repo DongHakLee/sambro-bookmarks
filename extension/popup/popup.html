@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sambro Bookmarks</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Save Bookmark</h1>
+    
+    <div id="status" class="status hidden"></div>
+    
+    <form id="bookmarkForm">
+      <div class="field">
+        <label>URL</label>
+        <input type="url" id="url" readonly>
+      </div>
+      
+      <div class="field">
+        <label>Title</label>
+        <input type="text" id="title">
+      </div>
+      
+      <div class="field">
+        <label>Description</label>
+        <input type="text" id="description">
+      </div>
+      
+      <div class="field">
+        <label>Note</label>
+        <textarea id="note" placeholder="Your personal note..."></textarea>
+      </div>
+      
+      <button type="submit" id="saveBtn">Save Bookmark</button>
+    </form>
+    
+    <div class="footer">
+      <a href="#" id="openDashboard">Open Dashboard</a>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
