@@ -11,6 +11,7 @@ const noteInput = document.getElementById('note');
 const saveBtn = document.getElementById('saveBtn');
 const statusDiv = document.getElementById('status');
 const openDashboard = document.getElementById('openDashboard');
+const closeBtn = document.getElementById('closeBtn');
 
 // Get current tab info when popup opens
 async function getCurrentTab() {
@@ -39,7 +40,6 @@ async function getPageMetadata(tab) {
                    `${window.location.origin}/favicon.ico`
         };
 
-        console.log('[Sambro] Extracted metadata:', metadata);
         return metadata;
       }
     });
@@ -135,6 +135,11 @@ form.addEventListener('submit', async (e) => {
 openDashboard.addEventListener('click', (e) => {
   e.preventDefault();
   chrome.tabs.create({ url: 'https://sambro-bookmarks.vercel.app' });
+});
+
+// Close popup
+closeBtn.addEventListener('click', () => {
+  window.close();
 });
 
 // Initialize

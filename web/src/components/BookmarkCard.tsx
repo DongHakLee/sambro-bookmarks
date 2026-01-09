@@ -2,20 +2,25 @@ import { Bookmark } from '../lib/supabase';
 
 interface Props {
   bookmark: Bookmark;
-  onDelete: () => void;
+  onDelete: (e: React.MouseEvent) => void;
 }
 
 export default function BookmarkCard({ bookmark, onDelete }: Props) {
-  const defaultImage = 'https://via.placeholder.com/300x150?text=No+Image';
-  
+  const defaultImage = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150"%3E%3Crect width="300" height="150" fill="%23f0f0f0"/%3E%3Ctext x="150" y="75" text-anchor="middle" fill="%23999" font-size="14"%3ENo Image%3C/text%3E%3C/svg%3E';
+
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+    <a
+      href={bookmark.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 block"
+    >
       {/* OG Image */}
-      <div className="h-40 bg-gray-200 overflow-hidden">
+      <div className="aspect-[4/3] bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
         <img
           src={bookmark.og_image || defaultImage}
           alt={bookmark.title || 'Bookmark'}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           onError={(e) => {
             (e.target as HTMLImageElement).src = defaultImage;
           }}
@@ -23,56 +28,54 @@ export default function BookmarkCard({ bookmark, onDelete }: Props) {
       </div>
 
       {/* Content */}
-      <div className="p-4">
-        <div className="flex items-start gap-2">
+      <div className="p-5">
+        {/* Title with favicon */}
+        <div className="flex items-start gap-3">
           {bookmark.favicon_url && (
             <img
               src={bookmark.favicon_url}
               alt=""
-              className="w-4 h-4 mt-1 flex-shrink-0"
+              className="w-5 h-5 mt-0.5 flex-shrink-0 rounded"
               onError={(e) => {
                 (e.target as HTMLImageElement).style.display = 'none';
               }}
             />
           )}
-          <h3 className="font-semibold text-gray-900 line-clamp-2">
+          <h3 className="font-semibold text-gray-900 line-clamp-2 flex-1">
             {bookmark.title || bookmark.url}
           </h3>
         </div>
 
+        {/* Description */}
         {bookmark.description && (
           <p className="mt-2 text-sm text-gray-600 line-clamp-2">
             {bookmark.description}
           </p>
         )}
 
+        {/* Note */}
         {bookmark.note && (
-          <div className="mt-2 p-2 bg-yellow-50 rounded text-sm text-yellow-800">
+          <div className="mt-3 px-3 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg text-sm text-blue-900 border border-blue-100">
             {bookmark.note}
           </div>
         )}
 
-        <div className="mt-3 flex items-center justify-between">
-          <a
-            href={bookmark.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 hover:text-blue-800 text-sm truncate max-w-[200px]"
-          >
-            {new URL(bookmark.url).hostname}
-          </a>
-          <button
-            onClick={onDelete}
-            className="text-red-500 hover:text-red-700 text-sm"
-          >
-            Delete
-          </button>
-        </div>
-
-        <div className="mt-2 text-xs text-gray-400">
-          {new Date(bookmark.created_at).toLocaleDateString()}
-        </div>
+        {/* Delete Button - Absolute positioned */}
+        <button
+          onClick={onDelete}
+          className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white/90 hover:bg-red-500 text-gray-500 hover:text-white shadow-md opacity-0 group-hover:opacity-100 transition-all duration-200 backdrop-blur-sm"
+          aria-label="Delete bookmark"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 6h18"/>
+            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+          </svg>
+        </button>
       </div>
-    </div>
+
+      {/* Hover overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+    </a>
   );
 }
