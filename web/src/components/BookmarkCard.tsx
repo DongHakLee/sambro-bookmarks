@@ -6,17 +6,17 @@ interface Props {
 }
 
 export default function BookmarkCard({ bookmark, onDelete }: Props) {
-  const defaultImage = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150"%3E%3Crect width="300" height="150" fill="%23f0f0f0"/%3E%3Ctext x="150" y="75" text-anchor="middle" fill="%23999" font-size="14"%3ENo Image%3C/text%3E%3C/svg%3E';
+  const defaultImage = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 150"%3E%3Crect width="300" height="150" fill="%231e293b"/%3E%3Ctext x="150" y="75" text-anchor="middle" fill="%2364748b" font-size="14"%3ENo Image%3C/text%3E%3C/svg%3E';
 
   return (
     <a
       href={bookmark.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-blue-200 block"
+      className="group relative bg-slate-900 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-800 hover:border-blue-700 block"
     >
       {/* OG Image */}
-      <div className="aspect-[4/3] bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+      <div className="aspect-[4/3] bg-gradient-to-br from-slate-800 to-slate-850 overflow-hidden">
         <img
           src={bookmark.og_image || defaultImage}
           alt={bookmark.title || 'Bookmark'}
@@ -41,21 +41,21 @@ export default function BookmarkCard({ bookmark, onDelete }: Props) {
               }}
             />
           )}
-          <h3 className="font-semibold text-gray-900 line-clamp-2 flex-1">
+          <h3 className="font-semibold text-slate-100 line-clamp-2 flex-1">
             {bookmark.title || bookmark.url}
           </h3>
         </div>
 
         {/* Description */}
         {bookmark.description && (
-          <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+          <p className="mt-2 text-sm text-slate-400 line-clamp-2">
             {bookmark.description}
           </p>
         )}
 
         {/* Note */}
         {bookmark.note && (
-          <div className="mt-3 px-3 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg text-sm text-blue-900 border border-blue-100">
+          <div className="mt-3 px-3 py-2 bg-gradient-to-r from-blue-900/40 to-indigo-900/40 rounded-lg text-sm text-blue-300 border border-blue-800/50">
             {bookmark.note}
           </div>
         )}
@@ -63,7 +63,7 @@ export default function BookmarkCard({ bookmark, onDelete }: Props) {
         {/* Delete Button - Absolute positioned */}
         <button
           onClick={onDelete}
-          className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white/90 hover:bg-red-500 text-gray-500 hover:text-white shadow-md opacity-0 group-hover:opacity-100 transition-all duration-200 backdrop-blur-sm"
+          className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full bg-slate-800/90 hover:bg-red-600 text-slate-400 hover:text-white shadow-md opacity-0 group-hover:opacity-100 transition-all duration-200 backdrop-blur-sm"
           aria-label="Delete bookmark"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

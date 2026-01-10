@@ -36,8 +36,8 @@ export default function AddBookmarkForm({ onClose, onSuccess }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <div className="bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300 border border-slate-800">
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-500 to-indigo-600 px-6 py-5">
           <div className="flex justify-between items-center">
@@ -57,7 +57,7 @@ export default function AddBookmarkForm({ onClose, onSuccess }: Props) {
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-slate-300 mb-2">
               URL *
             </label>
             <input
@@ -66,12 +66,12 @@ export default function AddBookmarkForm({ onClose, onSuccess }: Props) {
               onChange={(e) => setUrl(e.target.value)}
               required
               placeholder="https://example.com"
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200"
+              className="w-full px-4 py-3 border-2 border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 bg-slate-800 text-white placeholder-slate-400"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-slate-300 mb-2">
               Title
             </label>
             <input
@@ -79,12 +79,12 @@ export default function AddBookmarkForm({ onClose, onSuccess }: Props) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Page title"
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200"
+              className="w-full px-4 py-3 border-2 border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 bg-slate-800 text-white placeholder-slate-400"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-slate-300 mb-2">
               Description
             </label>
             <input
@@ -92,12 +92,12 @@ export default function AddBookmarkForm({ onClose, onSuccess }: Props) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Short description"
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200"
+              className="w-full px-4 py-3 border-2 border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 bg-slate-800 text-white placeholder-slate-400"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-slate-300 mb-2">
               Note
             </label>
             <textarea
@@ -105,7 +105,7 @@ export default function AddBookmarkForm({ onClose, onSuccess }: Props) {
               onChange={(e) => setNote(e.target.value)}
               placeholder="Your personal note..."
               rows={3}
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 resize-none"
+              className="w-full px-4 py-3 border-2 border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 resize-none bg-slate-800 text-white placeholder-slate-400"
             />
           </div>
 
@@ -113,7 +113,7 @@ export default function AddBookmarkForm({ onClose, onSuccess }: Props) {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-6 py-3 border-2 border-gray-200 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors"
+              className="flex-1 px-6 py-3 border-2 border-slate-600 text-slate-300 font-semibold rounded-xl hover:bg-slate-800 transition-colors"
             >
               Cancel
             </button>

@@ -44,11 +44,11 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      <header className="bg-white/80 backdrop-blur-lg border-b border-gray-100 sticky top-0 z-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <header className="bg-slate-900/80 backdrop-blur-lg border-b border-slate-800 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
               Sambro Bookmarks
             </h1>
             <button
@@ -65,7 +65,7 @@ function App() {
           <div className="mt-6">
             <div className="relative">
               <svg
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -83,7 +83,7 @@ function App() {
                 placeholder="Search bookmarks..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 shadow-sm hover:shadow-md"
+                className="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 shadow-sm hover:shadow-md text-white placeholder-slate-400"
               />
             </div>
           </div>
@@ -93,14 +93,14 @@ function App() {
       <main className="max-w-7xl mx-auto px-6 py-8">
         {isLoading ? (
           <div className="text-center py-20">
-            <div className="animate-spin rounded-full h-14 w-14 border-3 border-blue-200 border-t-blue-600 mx-auto"></div>
-            <p className="mt-6 text-gray-500 font-medium">Loading bookmarks...</p>
+            <div className="animate-spin rounded-full h-14 w-14 border-3 border-slate-700 border-t-blue-500 mx-auto"></div>
+            <p className="mt-6 text-slate-400 font-medium">Loading bookmarks...</p>
           </div>
         ) : bookmarks.length === 0 ? (
           <div className="text-center py-20">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-blue-50 mb-4">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-800 mb-4">
               <svg
-                className="w-10 h-10 text-blue-400"
+                className="w-10 h-10 text-slate-500"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -114,7 +114,7 @@ function App() {
                 />
               </svg>
             </div>
-            <p className="text-gray-600 font-medium">No bookmarks found. Add your first one!</p>
+            <p className="text-slate-400 font-medium">No bookmarks found. Add your first one!</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
