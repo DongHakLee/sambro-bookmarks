@@ -190,7 +190,7 @@ function App() {
             </div>
           )
         ) : (
-          <PromptList embedded={true} onPromptCreated={() => setShowAddPromptForm(false)} />
+          <PromptList embedded={true} />
         )}
       </main>
 
