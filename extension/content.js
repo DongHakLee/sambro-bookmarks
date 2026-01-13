@@ -6,6 +6,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === 'getMetadata') {
     const metadata = extractMetadata();
     sendResponse(metadata);
+  } else if (request.action === 'getSelectedText') {
+    const selectedText = window.getSelection().toString().trim();
+    sendResponse({ selectedText });
   }
   return true;
 });
@@ -19,10 +22,10 @@ function extractMetadata() {
 
   return {
     title: document.title,
-    description: getMetaContent('og:description') || 
+    description: getMetaContent('og:description') ||
                  getMetaContent('description') || '',
     ogImage: getMetaContent('og:image') || '',
-    favicon: document.querySelector('link[rel*="icon"]')?.href || 
+    favicon: document.querySelector('link[rel*="icon"]')?.href ||
              `${window.location.origin}/favicon.ico`,
     url: window.location.href
   };
