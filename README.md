@@ -1,14 +1,24 @@
 # Sambro Bookmarks
 
-Personal bookmark manager with browser extension and mobile web interface.
+Personal bookmark & prompt manager with browser extension and mobile web interface.
 
 ## Features
 
+### Bookmarks
 - Save bookmarks with one click from browser extension
 - Auto-extract page metadata (title, description, OG image)
 - Add personal notes to bookmarks
 - Search and filter bookmarks
 - Mobile-friendly web interface
+
+### Prompts (New!)
+- Create and manage personal prompts
+- Tag-based organization
+- Folder hierarchy support
+- Full-text search
+- Pin important prompts
+- Copy to clipboard functionality
+- Browser extension integration (save selected text as prompt)
 
 ## Project Structure
 
@@ -55,14 +65,22 @@ npm run dev
 
 ## Deployment
 
-### Web App (Vercel)
+### Quick Start
 
-1. Push to GitHub
-2. Connect to Vercel
-3. Add environment variables:
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-4. Deploy!
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
+
+### Vercel (Recommended)
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+cd web
+npx vercel --prod
+```
+
+**Production URL**: https://sambro-bookmarks.vercel.app
 
 ## Tech Stack
 
