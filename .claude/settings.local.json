@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__github__get_file_contents",
+      "Bash(grep:*)",
+      "Bash(xargs ls:*)",
+      "Bash(git clone:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(npm test:*)"
+    ]
+  }
+}
