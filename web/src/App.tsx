@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getBookmarks, deleteBookmark, searchBookmarks, Bookmark } from './lib/supabase';
 import BookmarkCard from './components/BookmarkCard';
 import AddBookmarkForm from './components/AddBookmarkForm';
@@ -29,7 +29,12 @@ function App() {
     }
   };
 
-  // Reset search when switching tabs
+  useEffect(() => {
+    if (activeTab === 'bookmarks') {
+      loadBookmarks();
+    }
+  }, [searchQuery, activeTab]);
+
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -51,39 +56,61 @@ function App() {
     loadBookmarks();
   };
 
-  // Theme configuration based on active tab
-  const theme = activeTab === 'bookmarks'
-    ? {
-        gradient: 'from-blue-400 to-indigo-400',
-        btnGradient: 'from-blue-500 to-indigo-600',
-        btnHoverGradient: 'from-blue-600 hover:to-indigo-700',
-        ringColor: 'focus:ring-blue-500/50 focus:border-blue-500',
-        spinnerColor: 'border-t-blue-500',
-        bgColor: 'bg-slate-800/50 border-slate-700'
-      }
-    : {
-        gradient: 'from-emerald-400 to-teal-400',
-        btnGradient: 'from-emerald-500 to-teal-600',
-        btnHoverGradient: 'from-emerald-600 hover:to-teal-700',
-        ringColor: 'focus:ring-emerald-500/50 focus:border-emerald-500',
-        spinnerColor: 'border-t-emerald-500',
-        bgColor: 'bg-slate-800/50 border-slate-700'
-      };
+  const isBookmarks = activeTab === 'bookmarks';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      <header className="bg-slate-900/80 backdrop-blur-lg border-b border-slate-800 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-6">
+    <div className="min-h-screen bg-[#0a0a0f] bg-grid-pattern noise-overlay">
+      {/* Ambient glow effects */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div
+          className={`absolute -top-[40%] left-1/2 -translate-x-1/2 w-[80%] h-[60%] rounded-full blur-[120px] transition-all duration-1000 ${
+            isBookmarks
+              ? 'bg-indigo-500/10'
+              : 'bg-teal-500/10'
+          }`}
+        />
+      </div>
+
+      {/* Header */}
+      <header className="glass-strong sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 py-5">
           <div className="flex justify-between items-center">
-            <h1 className="text-3xl font-bold bg-gradient-to-r {theme.gradient} bg-clip-text text-transparent">
-              Sambro Bookmarks
-            </h1>
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 ${
+                isBookmarks
+                  ? 'bg-gradient-to-br from-indigo-500 to-violet-600 shadow-lg shadow-indigo-500/25'
+                  : 'bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg shadow-teal-500/25'
+              }`}>
+                {isBookmarks ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                    <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" x2="8" y1="13" y2="13"/>
+                    <line x1="16" x2="8" y1="17" y2="17"/>
+                  </svg>
+                )}
+              </div>
+              <h1 className="font-display text-2xl font-bold text-white/95">
+                Sambro
+              </h1>
+            </div>
+
+            {/* Add Button */}
             <button
-              onClick={() => activeTab === 'bookmarks' ? setShowAddForm(true) : setShowAddPromptForm(true)}
-              className={`w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br ${theme.btnGradient} ${theme.btnHoverGradient} text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105`}
-              aria-label={`Add ${activeTab === 'bookmarks' ? 'bookmark' : 'prompt'}`}
+              onClick={() => isBookmarks ? setShowAddForm(true) : setShowAddPromptForm(true)}
+              className={`group relative w-11 h-11 flex items-center justify-center rounded-xl transition-all duration-300 hover:scale-105 active:scale-95 ${
+                isBookmarks
+                  ? 'bg-gradient-to-br from-indigo-500 to-violet-600 shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/40'
+                  : 'bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg shadow-teal-500/30 hover:shadow-teal-500/40'
+              }`}
+              aria-label={`Add ${isBookmarks ? 'bookmark' : 'prompt'}`}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white transition-transform duration-300 group-hover:rotate-90">
                 <path d="M12 5v14"/>
                 <path d="M5 12h14"/>
               </svg>
@@ -92,36 +119,53 @@ function App() {
 
           {/* Tab Navigation */}
           <div className="mt-6 flex justify-center">
-            <div className="inline-flex bg-slate-800/50 rounded-xl p-1 border border-slate-700">
+            <div className="glass inline-flex rounded-xl p-1.5 gap-1">
               <button
                 onClick={() => handleTabChange('bookmarks')}
-                className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-200 ${
-                  activeTab === 'bookmarks'
-                    ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-md'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
+                className={`relative px-5 py-2.5 rounded-lg font-medium text-sm transition-all duration-300 ${
+                  isBookmarks
+                    ? 'text-white'
+                    : 'text-white/50 hover:text-white/80'
                 }`}
               >
-                📚 Bookmarks
+                {isBookmarks && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-violet-600 rounded-lg animate-fade-in" />
+                )}
+                <span className="relative flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+                  </svg>
+                  Bookmarks
+                </span>
               </button>
               <button
                 onClick={() => handleTabChange('prompts')}
-                className={`px-6 py-2.5 rounded-lg font-medium transition-all duration-200 ${
-                  activeTab === 'prompts'
-                    ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
+                className={`relative px-5 py-2.5 rounded-lg font-medium text-sm transition-all duration-300 ${
+                  !isBookmarks
+                    ? 'text-white'
+                    : 'text-white/50 hover:text-white/80'
                 }`}
               >
-                📝 Prompts
+                {!isBookmarks && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-lg animate-fade-in" />
+                )}
+                <span className="relative flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                  </svg>
+                  Prompts
+                </span>
               </button>
             </div>
           </div>
 
           {/* Search Bar - Bookmarks only */}
-          {activeTab === 'bookmarks' && (
-            <div className="mt-6">
-              <div className="relative">
+          {isBookmarks && (
+            <div className="mt-6 animate-slide-down">
+              <div className="relative max-w-2xl mx-auto">
                 <svg
-                  className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -139,7 +183,7 @@ function App() {
                   placeholder="Search bookmarks..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 shadow-sm hover:shadow-md text-white placeholder-slate-400"
+                  className="w-full pl-12 pr-4 py-3.5 input-glass"
                 />
               </div>
             </div>
@@ -147,18 +191,19 @@ function App() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        {activeTab === 'bookmarks' ? (
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-6 py-8 relative">
+        {isBookmarks ? (
           isLoading ? (
-            <div className="text-center py-20">
-              <div className="animate-spin rounded-full h-14 w-14 border-3 border-slate-700 border-t-blue-500 mx-auto"></div>
-              <p className="mt-6 text-slate-400 font-medium">Loading bookmarks...</p>
+            <div className="text-center py-20 animate-fade-in">
+              <div className={`w-14 h-14 mx-auto rounded-full border-2 border-white/10 border-t-indigo-500 animate-spin`} />
+              <p className="mt-6 text-white/40 font-medium">Loading bookmarks...</p>
             </div>
           ) : bookmarks.length === 0 ? (
-            <div className="text-center py-20">
-              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-800 mb-4">
+            <div className="text-center py-20 animate-slide-up">
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl glass mb-6">
                 <svg
-                  className="w-10 h-10 text-slate-500"
+                  className="w-10 h-10 text-white/30"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -167,25 +212,35 @@ function App() {
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+                    strokeWidth={1.5}
+                    d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"
                   />
                 </svg>
               </div>
-              <p className="text-slate-400 font-medium">No bookmarks found. Add your first one!</p>
+              <p className="text-white/50 font-medium">
+                {searchQuery ? 'No bookmarks match your search' : 'No bookmarks yet'}
+              </p>
+              <p className="mt-2 text-white/30 text-sm">
+                {searchQuery ? 'Try a different search term' : 'Click + to add your first bookmark'}
+              </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {bookmarks.map((bookmark) => (
-                <BookmarkCard
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {bookmarks.map((bookmark, index) => (
+                <div
                   key={bookmark.id}
-                  bookmark={bookmark}
-                  onDelete={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleDelete(bookmark.id);
-                  }}
-                />
+                  className="animate-slide-up opacity-0"
+                  style={{ animationDelay: `${index * 0.05}s`, animationFillMode: 'forwards' }}
+                >
+                  <BookmarkCard
+                    bookmark={bookmark}
+                    onDelete={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleDelete(bookmark.id);
+                    }}
+                  />
+                </div>
               ))}
             </div>
           )
@@ -194,6 +249,7 @@ function App() {
         )}
       </main>
 
+      {/* Modals */}
       {showAddForm && (
         <AddBookmarkForm
           onClose={() => setShowAddForm(false)}
@@ -206,7 +262,6 @@ function App() {
           onClose={() => setShowAddPromptForm(false)}
           onSuccess={() => {
             setShowAddPromptForm(false);
-            // PromptList will auto-refresh
           }}
         />
       )}

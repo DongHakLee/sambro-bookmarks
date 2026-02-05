@@ -8,48 +8,114 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>Sambro Bookmarks</h1>
-      <button id="closeBtn" class="close-btn" title="Close">✕</button>
+      <div class="header-content">
+        <div class="header-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+          </svg>
+        </div>
+        <h1>Sambro</h1>
+      </div>
+      <button id="closeBtn" class="close-btn" title="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6 6 18"/>
+          <path d="m6 6 12 12"/>
+        </svg>
+      </button>
     </div>
-    
-    <div id="status" class="status hidden"></div>
-    
-    <form id="bookmarkForm">
-      <div class="field">
-        <label>URL</label>
-        <input type="url" id="url" readonly>
-      </div>
-      
-      <div class="field">
-        <label>Title</label>
-        <input type="text" id="title">
-      </div>
-      
-      <div class="field">
-        <label>Description</label>
-        <input type="text" id="description">
-      </div>
-      
-      <div class="field">
-        <label>Note</label>
-        <textarea id="note" placeholder="Your personal note..."></textarea>
-      </div>
-      
-      <button type="submit" id="saveBtn">Save Bookmark</button>
-    </form>
 
-    <div class="bookmarks-section">
-      <h2 class="bookmarks-title">Recent Bookmarks</h2>
-      <div id="bookmarksList" class="bookmarks-list">
-        <div class="bookmarks-loading">Loading...</div>
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="bookmark">
+        <span class="tab-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>
+          </svg>
+        </span>
+        <span class="tab-label">Bookmark</span>
+      </button>
+      <button class="tab-btn" data-tab="prompt">
+        <span class="tab-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+        </span>
+        <span class="tab-label">Prompt</span>
+      </button>
+    </div>
+
+    <div id="status" class="status hidden"></div>
+
+    <!-- Bookmark Tab Content -->
+    <div id="bookmarkContent" class="tab-content active">
+      <form id="bookmarkForm">
+        <div class="field">
+          <label>URL</label>
+          <input type="url" id="url" readonly>
+        </div>
+
+        <div class="field">
+          <label>Title</label>
+          <input type="text" id="title" placeholder="Page title">
+        </div>
+
+        <div class="field">
+          <label>Description</label>
+          <input type="text" id="description" placeholder="Brief description">
+        </div>
+
+        <div class="field">
+          <label>Note</label>
+          <textarea id="note" placeholder="Your personal note..."></textarea>
+        </div>
+
+        <button type="submit" id="saveBtn">Save Bookmark</button>
+      </form>
+
+      <div class="bookmarks-section">
+        <h2 class="bookmarks-title">Recent Bookmarks</h2>
+        <div id="bookmarksList" class="bookmarks-list">
+          <div class="bookmarks-loading">Loading...</div>
+        </div>
       </div>
+    </div>
+
+    <!-- Prompt Tab Content -->
+    <div id="promptContent" class="tab-content">
+      <form id="promptForm">
+        <div class="field">
+          <label>Title <span class="required">*</span></label>
+          <input type="text" id="promptTitle" placeholder="Prompt name" required>
+        </div>
+
+        <div class="field">
+          <label>Content <span class="required">*</span></label>
+          <textarea id="promptText" placeholder="Enter your prompt text..." required></textarea>
+        </div>
+
+        <div class="field">
+          <label>Description</label>
+          <input type="text" id="promptDescription" placeholder="Optional description">
+        </div>
+
+        <button type="submit" id="savePromptBtn">Save Prompt</button>
+      </form>
     </div>
 
     <div class="footer">
-      <a href="#" id="openDashboard">Open Dashboard</a>
+      <a href="#" id="openDashboard">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="9"/>
+          <rect x="14" y="3" width="7" height="5"/>
+          <rect x="14" y="12" width="7" height="9"/>
+          <rect x="3" y="16" width="7" height="5"/>
+        </svg>
+        Open Dashboard
+      </a>
     </div>
   </div>
-  
+
   <script src="popup.js"></script>
 </body>
 </html>
